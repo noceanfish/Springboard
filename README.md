@@ -56,3 +56,13 @@
                annotated (0 = negative, 4 = positive) and they can be used to detect sentiment
                6 fields: target, ids, date, flag, user, text
                https://www.linkedin.com/pulse/social-machine-learning-h2o-twitter-python-marios-michailidis/
+               
+## 1.8 TimeSeries Data
+* quandl-api get stock price 
+* From: https://www.quandl.com/data/EOD-End-of-Day-US-Stock-Prices/usage/quickstart/python
+* Description: using API to get stock price information
+
+## 1.9 TimeSeries Data additional:
+* Yahoo Finance
+* From Yahoo API
+* Description: https://rapidapi.com/blog/how-to-use-the-yahoo-finance-api/
