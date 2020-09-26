@@ -78,6 +78,13 @@ target/
 # exclude data from source control by default
 /data/
 
+# exclude pre_trained models
+models/*.h5
+models/*.pkl
+
+# exclude visualization resource
+visualization/*.png
+
 # Mac OS-specific storage files
 .DS_Store
 

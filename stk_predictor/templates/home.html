@@ -1,0 +1,35 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+    
+      <h1 class="display-3">Welcome to my Capstone Project</h1>
+    
+      <p>This is a rookie stock prediction app which was based on NLP (sentimantal analysis) and time-series analysis.</p>
+      <p>Some of the concept are based on the reaearch of previous work. Learn more...</p>
+      <p><a href="https://nlp.stanford.edu/sentiment/" class="btn btn-primary btn-large">NLP &raquo;</a>
+      <a href="https://allennlp.org/elmo" class="btn btn-primary btn-large">ELMo &raquo;</a>
+      <a href="https://www.studocu.com/en-us/course/stanford-university/introduction-to-time-series-analysis/1014768" class="btn btn-primary btn-large">TS-model &raquo;</a>
+      <a href="https://github.com/cookiecutter-flask/cookiecutter-flask" class="btn btn-primary btn-large">Flask &raquo;</a></p>
+    </div>
+</div><!-- /.jumbotron -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h2><i class="fa fa-code"></i>Make Prediction</h2>
+      <p>Please input stock ticker</p>
+      <p> (current wo only pre-trained 'AAPL' for real-time prediction)</p>
+      <form class="form-inline" id="predictionForm" method="POST" action="{{ url_for('predictor.predict') }}">
+        <div class="input-group mb-2 mr-sm-2">
+          {{ form.csrf_token }}
+          {{ form.ticker_name(placeholder="AAPL", class_="form-control mr-sm-1 my-auto") }}
+          <button class="btn btn-light btn-primary m-auto" type="submit">make prediction</button>
+        </div>
+    </form>
+    </div>
+  </div><!-- /.row -->
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+    
+      <h1 class="display-3">Train a New Model</h1>
+    
+      <p>This tool will help you train a new time-series model, based on the ticker name.</p>
+    </div>
+</div><!-- /.jumbotron -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h2><i class="fa fa-code"></i>Train New</h2>
+      <p>This tool will help you train a new time-series model, please input ticker's name.</p>
+      <form class="form-inline" id="loginForm" method="POST" action="/" role="login">
+        <input name="Tickername" id="Tickername" value="" />
+        <div class="input-group mb-2 mr-sm-2">
+          <button class="btn btn-light btn-primary m-auto" type="submit">Train</button>
+        </div>
+      </form>
+    </div>
+  </div><!-- /.row -->
+</div>
+{% endblock %}

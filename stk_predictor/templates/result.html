@@ -1,0 +1,136 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+    
+        <h1 class="display-3">My Prediction</h1>
+    
+        <p>This page demostrate the predicting result.</p>
+        <p>Including history price graph, interal-day news sentimental score, price movement guess, total future forcast.</p>
+    </div>
+</div><!-- /.jumbotron -->
+
+<div class="container">
+
+  <!--graph section-->
+  <div class="row">
+    <h2><i class="fa fa-code"></i>1. price graph</h2>
+  </div>
+  <div class="row">
+    <img src="{{ url_for(endpoint='static', filename='visualization/' + res_data['plot_img']) }}" class="img-fluid" alt="Responsive image">
+  </div><!-- /.row -->
+    
+
+  <!--news sentimental analysis section-->
+  <div class="row">
+    <h2><i class="fa fa-code"></i>2. News sentimental prediction</h2>
+  </div>
+  <ul class="list-group">
+    <li>The recent two days news that related to the ticker.</li>
+    <li>Based on NLP result, if the news will impose positive effect, the Prediction would be 1</li>
+    <li>while when the news conduct negative effect, the Prediction would be -1</li>
+    <li>otherwise, it would be given 0 for neutral influence.</li>
+    <li>the confidence shows the probability of the guess result</li>
+  </ul>
+  <div class="row">
+    <h2>general statistic</h2>
+  </div>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">sentimetal</th>
+        <th scope="col">total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Positive News</td>
+        <th scope="row">{{ res_data['total_news_pos']}}</th>
+      </tr>
+      <tr>
+        <td>Negative News</td>
+        <td>{{ res_data['total_news_neg']}}</td>
+      </tr>
+      <tr>
+        <td>Neutral News</td>
+        <td>{{ res_data['total_news_neu']}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">date</th>
+        <th scope="col">time</th>
+        <th scope="col">news</th>
+        <th scope="col">prediction</th>
+        <th scope="col">confidence</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in res_data['news_df'] %}
+      <tr>
+        <th scope="row">{{row['date']}}</th>
+        <td>{{row['time']}}</td>
+        <td>{{row['texts']}}</td>
+        <td>{{row['pred']}}</td>
+        <td>{{row['pred_prob']}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!--price movement analysis section-->
+  <div class="row">
+    <h2><i class="fa fa-code"></i>3. Price movement prediction</h2>
+  </div>
+  <ul class="list-group">
+    <li>This section give the one month return guess.</li>
+    <li>Based on historical price, if the stock will move higher, the Prediction would be 1</li>
+    <li>otherwise, it would give 0</li>
+    <li>the confidence shows the probability of the guess result</li>
+  </ul>
+  <div class="row">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Prediction</th>
+          <th scope="col">Confidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="col">{{ res_data['pri_res'][0] }}</td>
+          <td>{{ res_data['pri_pred_prob'][0] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--final summary section-->
+  <div class="row">
+    <h2><i class="fa fa-code"></i>4. Final Summary</h2>
+  </div>
+  <ul class="list-group">
+    <li  class="list-group-item">In recent 2 days, with regard to stock {{ form.ticker_name.data.upper() }},
+      there were {{ res_data['total_news_pos'] }} POSITIVE News,
+      while NEGATIVE News are {{ res_data['total_news_neg'] }}.
+    </li>
+    <li  class="list-group-item">That's to say, If you invest today, probabily it will give you 
+    {% if (res_data['total_news_neg'] - res_data['total_news_pos']) > 0 %}
+        NEGATIVE RETURN
+    {% elif (res_data['total_news_neg'] - res_data['total_news_pos']) < 0 %}
+        POSITIVE RETURN
+    {% else %}
+        NEUTRAL RETURN
+    {% endif %}
+    </li>
+    <li  class="list-group-item">The final result confidence is {{ res_data['fin'] }}</li>
+    <li  class="list-group-item">The price prediction is based close price return, volatility, volumes on different periods, appling shallow LSTM to calculate time-series guess.</li>
+    <li  class="list-group-item">News headlines' sentimental applies ELMo embedding and LogisticRegression to make the prediction.</li>
+  </ul>
+
+</div>
+{% endblock %}
