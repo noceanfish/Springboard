@@ -83,7 +83,7 @@ models/*.h5
 models/*.pkl
 
 # exclude visualization resource
-visualization/*.png
+stk_predictor/static/visualization/
 
 # Mac OS-specific storage files
 .DS_Store
