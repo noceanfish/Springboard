@@ -96,7 +96,23 @@ The app use sqllit3 to store price data; the news headlines are not persistence 
 ![Alt text](reports/prediction-1.png?raw=true "Optional Title")
 ![Alt text](reports/prediction-2.png?raw=true "Optional Title")
 
-The sentimental analysis apply ELMo
+# 5 How to use
+
+## 5.1 run the app
+when you deploy the app with production server, such as uwsgi, we can run the app by:
+```
+export FLASK_ENV=production
+export FLASK_APP=stk_predictor.app
+flask run
+```
+
+## 5.2 how to train the classifier
+If we want to predict a new stock, We have to train a new model by using the cli command:
+```
+flask train_ts_model AAPL // it will load AAPL history data and train a new model
+
+flask train_sa_model // this will bring up training sentimental model
+``` 
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
