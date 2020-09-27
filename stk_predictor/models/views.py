@@ -3,7 +3,6 @@
 #
 
 from flask import Blueprint, current_app, render_template, flash, redirect, request, url_for
-from stk_predictor.predictor.forms import MakePredictionForm
 
 
 blueprint = Blueprint("train_newmodel", __name__, url_prefix="/trainNewmodel")

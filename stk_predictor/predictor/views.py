@@ -4,10 +4,8 @@
 import os
 import pickle
 import numpy as np
-import pandas as pd
 import datetime
 import tensorflow as tf
-import json
 
 from sqlalchemy import func
 
@@ -15,14 +13,12 @@ from flask import (Blueprint,
                    current_app,
                    render_template,
                    flash,
-                   redirect,
-                   request,
-                   url_for)
+                   request)
 from stk_predictor.predictor.forms import MakePredictionForm
 from stk_predictor.predictor.models import Apple
 from stk_predictor.utils import flash_errors
 from stk_predictor.data import make_dataset
-from stk_predictor.models import train_sa_model, train_ts_model
+from stk_predictor.models import train_sa_model
 from stk_predictor.extensions import db
 from stk_predictor.visualization import visualize
 

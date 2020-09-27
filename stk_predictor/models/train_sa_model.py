@@ -12,13 +12,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 
 # evaluation metrics
-from sklearn.metrics import roc_curve, roc_auc_score, auc
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import classification_report
 
-import spacy
 import tensorflow as tf
 import tensorflow_hub as hub
 

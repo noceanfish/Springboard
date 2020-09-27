@@ -12,7 +12,6 @@ import yfinance as yf
 from pandas_datareader import data as pdr
 
 from flask import current_app
-from stk_predictor.predictor.models import Apple
 from stk_predictor.extensions import db
 
 

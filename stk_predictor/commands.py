@@ -2,8 +2,6 @@
 """Click commands."""
 
 import os
-from glob import glob
-from subprocess import call
 import pandas as pd
 import pickle
 import datetime

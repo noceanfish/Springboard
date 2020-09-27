@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 """Ticker Price models."""
-
-import datetime
-
 from stk_predictor.database import (
     Column,
     PkModel,
