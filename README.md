@@ -89,7 +89,22 @@ The app use sqllit3 to store price data; the news headlines are not persistence 
 
 # 3 The Deployment
 
-## 3.1 Using Docker
+## 3.1 Using Docker to initialize the db
+    * this will save the logs and db in disk-volumes as mounted in command
+```
+docker run -it \
+  -v '/Users/zz/Documents/dev/Springboard/db:/app/db' \
+  -v '/Users/zz/Documents/dev/Springboard/logs:/app/logs' \
+  springboard-csp init-db
+```
+
+## 3.2 run the app
+```
+docker run -it -p 5000:5000 
+   -v '/Users/zz/Documents/dev/Springboard/db:/app/db' \
+   -v '/Users/zz/Documents/dev/Springboard/logs:/app/logs' \
+   springboard-csp
+```
 
 # 4 Screenshot
 ![Alt text](reports/home.png?raw=true "Optional Title")
