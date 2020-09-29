@@ -10,11 +10,15 @@ environment variables.
 
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
+basedir = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                       os.pardir))
 
 class BaseConfig(object):
     """Base configuration"""
+
+    db_dir = os.path.join(basedir, 'db')
+    if not os.path.exists(db_dir):
+        os.makedirs(db_dir)
 
     APP_NAME = os.getenv("APP_NAME", "stk_predictor")
     DEBUG_TB_ENABLED = False
@@ -32,7 +36,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", 
-        "sqlite:///{0}".format(os.path.join(basedir, "dev.db"))
+        "sqlite:///{0}".format(os.path.join(BaseConfig.db_dir, "dev.db"))
     )
 
 
@@ -49,5 +53,5 @@ class ProductionConfig(BaseConfig):
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", 
-        "sqlite:///{0}".format(os.path.join(basedir, "prod.db"))
+        "sqlite:///{0}".format(os.path.join(BaseConfig.db_dir, "prod.db"))
     )

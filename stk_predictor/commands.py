@@ -104,6 +104,16 @@ def train_time_series_model(ticker='AAPL'):
 def init_db_command():
     """Initilize DB through flask-sqlalchemy
     """
-    from .predictor import models
-    db.create_all()
+    current_app.logger.info("start initilize sqlite DB...")
+    current_app.logger.info(current_app.config['SQLALCHEMY_DATABASE_URI'])
+    try:
+        from stk_predictor.predictor.models import Apple
+        db.drop_all()
+        db.create_all()
+        # Apple.create(ids=1, trading_date=datetime.datetime(2020, 8, 29), intraday_close=109.1, intraday_volumes=20000.0)
+        current_app.logger.info(db.session.query(Apple).scalar())
+        current_app.logger.info("Successfully initilize sqlite DB!")
+    except Exception as ex:
+        current_app.logger.info("Initialize DB encounter exception.", ex)
+        # raise RuntimeError("run time exception from init-db")
 

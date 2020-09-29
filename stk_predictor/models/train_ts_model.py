@@ -29,7 +29,7 @@ class ModelStateReset(tf.keras.callbacks.Callback):
         self.model.reset_states()
 
 
-reset=ModelStateReset()
+reset = ModelStateReset()
 
 
 class TimeSeriesModel(object):
@@ -190,7 +190,7 @@ class TimeSeriesModel(object):
         """
 
         # ignore 'index:date' 'close', 'volume', 'log_ret_1d'
-        x_train, x_test, y_train, y_test = train_test_split(data.iloc[:, 3:73],
+        x_train, x_test, y_train, y_test = train_test_split(data.iloc[:, 4:73],
                                                             target, 
                                                             test_size=0.1,
                                                             shuffle=False,

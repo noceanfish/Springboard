@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 import logging
-import sys
 import os
 
-from flask import Flask, render_template
+from logging.handlers import RotatingFileHandler
 
+from flask import Flask, render_template
 from stk_predictor import commands, predictor, models, extensions
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.join(HERE, os.pardir)
 
 
 def create_app():
@@ -15,7 +18,7 @@ def create_app():
 
     :param
     """
-
+    configure_logger()
     app = Flask(__name__.split('.')[0])
 
     # set config
@@ -29,7 +32,6 @@ def create_app():
     register_blueprints(app)
     register_errorhandlers(app)
     register_commands(app)
-    configure_logger(app)
     return app
 
 
@@ -41,9 +43,11 @@ def register_blueprints(app):
     app.register_blueprint(commands.blueprint)
     return None
 
+
 def register_extensions(app):
     """Register Flask extensions."""
     extensions.db.init_app(app)
+
 
 def register_errorhandlers(app):
     """Register error templates."""
@@ -69,8 +73,18 @@ def register_commands(app):
     app.cli.add_command(commands.init_db_command)
 
 
-def configure_logger(app):
+def configure_logger():
     """Configure loggers."""
-    handler = logging.StreamHandler(sys.stdout)
-    if not app.logger.handlers:
-        app.logger.addHandler(handler)
+    # handler = logging.StreamHandler(sys.stdout)
+    log_dir = os.path.join(basedir, 'logs')
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    logging.basicConfig(level=logging.INFO)
+    handler = RotatingFileHandler(os.path.join(log_dir, 'flask.log'), maxBytes=1024*1024*10, backupCount=10)
+    logging_format = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+    handler.setFormatter(logging_format)
+    logging.getLogger().addHandler(handler)
+    # if not app.logger.handlers:
+    #     app.logger.addHandler(handler)
