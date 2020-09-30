@@ -85,7 +85,9 @@ Finally, we ensemble the two models to get the final results. the app tells peop
 
 # 2 Data Storage
 
-The app use sqllit3 to store price data; the news headlines are not persistence on local system; the original traing sets is save in csv files.
+* The app use sqllit3 to store price data; 
+* the news headlines are not persistence on local system; 
+* the original traing sets is save in csv files.
 
 # 3 The Deployment
 
@@ -93,16 +95,16 @@ The app use sqllit3 to store price data; the news headlines are not persistence 
     * this will save the logs and db in disk-volumes as mounted in command
 ```
 docker run -it \
-  -v '/Users/zz/Documents/dev/Springboard/db:/app/db' \
-  -v '/Users/zz/Documents/dev/Springboard/logs:/app/logs' \
+  -v '/local/storage/db:/app/db' \
+  -v '/local/storage/logs:/app/logs' \
   springboard-csp init-db
 ```
 
 ## 3.2 run the app
 ```
 docker run -it -p 5000:5000 
-   -v '/Users/zz/Documents/dev/Springboard/db:/app/db' \
-   -v '/Users/zz/Documents/dev/Springboard/logs:/app/logs' \
+   -v '/local/storage/db:/app/db' \
+   -v '/local/storage/logs:/app/logs' \
    springboard-csp
 ```
 
@@ -114,7 +116,8 @@ docker run -it -p 5000:5000
 # 5 How to use
 
 ## 5.1 run the app
-when you deploy the app with production server, such as uwsgi, we can run the app by:
+when you deploy the app with production server, such as uwsgi, 
+In experiment environment, we can run the app by flask interal server:
 ```
 export FLASK_ENV=production
 export FLASK_APP=stk_predictor.app

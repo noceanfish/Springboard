@@ -13,17 +13,17 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 
 # add user
-#RUN useradd -m sid
-#RUN chown -R sid:sid /app
-#USER sid
-#ENV PATH="/home/sid/.local/bin:${PATH}"
+RUN useradd -m sid
+RUN chown -R sid:sid /app
+USER sid
+ENV PATH="/home/sid/.local/bin:${PATH}"
 
 # ==================================== Production ====================================
 FROM base AS production
 
 # Run the command inside your image filesystem.
-#RUN pip --no-cache-dir install --user -r requirements.txt
-RUN pip --no-cache-dir install -r requirements.txt
+RUN pip --no-cache-dir install --user -r requirements.txt
+# RUN pip --no-cache-dir install -r requirements.txt
 RUN python3 -m spacy download en_core_web_md
 RUN python3 -m nltk.downloader stopwords
 

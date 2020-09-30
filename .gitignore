@@ -58,6 +58,13 @@ docs/_build/
 # PyBuilder
 target/
 
+# Docker files
+.dockerignore
+
+# git ignore
+.gitignore
+.gitattributes
+
 # DotEnv configuration
 .env
 
