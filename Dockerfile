@@ -21,13 +21,15 @@ ENV PATH="/home/sid/.local/bin:${PATH}"
 # ==================================== Production ====================================
 FROM base AS production
 
+USER sid
+
 # Run the command inside your image filesystem.
 RUN pip --no-cache-dir install --user -r requirements.txt
 # RUN pip --no-cache-dir install -r requirements.txt
 RUN python3 -m spacy download en_core_web_md
 RUN python3 -m nltk.downloader stopwords
 
-COPY . /app
+COPY --chown=sid:sid . /app
 
 # Add metadata to the image to describe which port the container is listening on at runtime.
 EXPOSE 5000

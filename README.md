@@ -61,33 +61,33 @@ Project Organization
 
 # 1 Project Intro
 
-This project implement NLP and time-series analysis on texts and stock trading data to get a specific stock's future movement.
+This project implements NLP and time-series analysis on texts and stock trading data to get a specific company's stock future movement.
 
 ## 1.1 Data Pipeline
 
-The app scrape recent fresh data from Finviz and Yahoo Fiance. 
+The app scrapes recent fresh data from Finviz and Yahoo Fiance. 
 
-Then do the basic preprocessing and clean to the data set, including removing stopwords and special characters, expanding contractions, lemmatization, and tokenizer on texts data. 
+Then do the basic preprocessing and cleaning to the data set, including removing stop-words and special characters, expanding contractions, lemmatization, and tokenizer on texts data. 
 
-In addition, the app generate log return, volatility, volumes with special time-window (5-day to 80-weeks).
+In addition, in order to apply classification on time-series data, the app generates log return, volatility, volumes with special time-window (5-day to 80-weeks) as input features. And I design a LSTM model to achieve classification result on time series data. 
 
 ## 1.2 Training the model
 
-The app utilizes NLP embedding algorithms to get texts embeddings. We explor different embedding methos, word-count, tf-idf, gloves, bow, and elmo embedding. The last one give the hightest accuracy performance in predicting.
+The app utilizes NLP embedding algorithms to get texts embeddings. I explore different embedding methods, including word-count, tf-idf, gloves, bow, and elmo embedding. The last one gives the hightest accuracy performance on predicting the news sentimental.
 
-We also experiment different classification algorithms, such as LogisticRegression, SVM, Naive Bayes. Logistic Regression give better result.
+I also experiment different classification algorithms, such as LogisticRegression, SVM, Naive Bayes. Logistic Regression give better result.
 
-To deal with time-eries model, we create a LSTM model and apply feature engineering results on the model.
+To deal with time-eries model, I create a LSTM model and apply feature engineering results on the model.
 
 ## 1.3 Result 
 
-Finally, we ensemble the two models to get the final results. the app tells people how will the stock move in the future based on nits recent news and historical price.
+Finally, I ensemble the two model's judgement to get the final results. The app tells people how will the stock move in the future based on its recent news and historical price.
 
 # 2 Data Storage
 
 * The app use sqllit3 to store price data; 
 * the news headlines are not persistence on local system; 
-* the original traing sets is save in csv files.
+* the original traing sets is saved in csv files.
 
 # 3 The Deployment
 
@@ -125,7 +125,7 @@ flask run
 ```
 
 ## 5.2 how to train the classifier
-If we want to predict a new stock, We have to train a new model by using the cli command:
+If you want to predict a new stock, you have to train a new model by using the cli command:
 ```
 flask train_ts_model AAPL // it will load AAPL history data and train a new model
 
